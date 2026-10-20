@@ -1,0 +1,29 @@
+﻿
+@model BiblioTech.Models.Autor
+
+@{
+    ViewData["Title"] = "Editar autor";
+}
+
+<div class="page-header">
+    <div>
+        <h1>Editar autor</h1>
+        <p>Modifique la información del autor seleccionado.</p>
+    </div>
+</div>
+
+<div class="content-card">
+    <form asp-action="Edit"
+          asp-route-id="@Model.Id"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <partial name="_Formulario" model="Model" />
+
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,97 @@
+﻿
+@model BiblioTech.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Nuevo préstamo";
+}
+
+<div class="page-header">
+    <div>
+        <h1>Registrar préstamo</h1>
+        <p>Seleccione el libro, el usuario y la fecha de devolución.</p>
+    </div>
+</div>
+
+<div class="content-card">
+
+    <form asp-action="Create" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <div class="row g-4">
+
+            <div class="col-md-12">
+                <label asp-for="LibroId" class="form-label">
+                    Libro disponible
+                </label>
+
+                <select asp-for="LibroId"
+                        asp-items="ViewBag.Libros"
+                        class="form-select"
+                        required>
+                    <option value="">Seleccione un libro</option>
+                </select>
+
+                <span asp-validation-for="LibroId"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-12">
+                <label asp-for="UsuarioId" class="form-label">
+                    Usuario
+                </label>
+
+                <select asp-for="UsuarioId"
+                        asp-items="ViewBag.Usuarios"
+                        class="form-select"
+                        required>
+                    <option value="">Seleccione un usuario</option>
+                </select>
+
+                <span asp-validation-for="UsuarioId"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-12">
+                <label asp-for="FechaDevolucionPrevista"
+                       class="form-label">
+                    Fecha prevista de devolución
+                </label>
+
+                <input asp-for="FechaDevolucionPrevista"
+                       type="date"
+                       asp-format="{0:yyyy-MM-dd}"
+                       min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")"
+                       class="form-control"
+                       required />
+
+                <span asp-validation-for="FechaDevolucionPrevista"
+                      class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-circle"></i>
+                Registrar préstamo
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

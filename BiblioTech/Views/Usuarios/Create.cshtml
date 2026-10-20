@@ -1,0 +1,30 @@
+﻿
+@model BiblioTech.Models.Usuario
+
+@{
+    ViewData["Title"] = "Registrar usuario";
+}
+
+<div class="page-header">
+    <div>
+        <h1>Registrar usuario</h1>
+        <p>Ingrese los datos del nuevo usuario de la biblioteca.</p>
+    </div>
+</div>
+
+<div class="content-card">
+
+    <form asp-action="Create" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <partial name="_Formulario" model="Model" />
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

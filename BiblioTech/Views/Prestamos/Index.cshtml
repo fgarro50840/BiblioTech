@@ -1,0 +1,162 @@
+﻿
+@model IEnumerable<BiblioTech.Models.Prestamo>
+
+@{
+    ViewData["Title"] = "Préstamos";
+}
+
+<div class="page-header">
+    <div>
+        <h1>Gestión de préstamos</h1>
+        <p>Administre los préstamos y devoluciones de libros.</p>
+    </div>
+
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i>
+        Nuevo préstamo
+    </a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        <i class="bi bi-check-circle"></i>
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        <i class="bi bi-exclamation-triangle"></i>
+        @TempData["Error"]
+    </div>
+}
+
+<div class="content-card">
+
+    <form asp-action="Index" method="get"
+          class="row g-3 mb-4">
+
+        <div class="col-md-9">
+            <select name="estado" class="form-select">
+                <option value="">Todos los préstamos</option>
+                <option value="activos"
+                    selected="@(ViewBag.Estado == "activos")">
+                    Préstamos activos
+                </option>
+                <option value="devueltos"
+                    selected="@(ViewBag.Estado == "devueltos")">
+                    Préstamos devueltos
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <button type="submit"
+                    class="btn btn-primary w-100">
+                <i class="bi bi-funnel"></i>
+                Filtrar
+            </button>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+
+            <thead>
+                <tr>
+                    <th>Libro</th>
+                    <th>Usuario</th>
+                    <th>Fecha préstamo</th>
+                    <th>Devolución prevista</th>
+                    <th>Estado</th>
+                    <th class="text-end">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var prestamo in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@prestamo.Libro.Titulo</strong>
+                        </td>
+
+                        <td>
+                            @prestamo.Usuario.Nombre
+                            @prestamo.Usuario.Apellido
+                        </td>
+
+                        <td>
+                            @prestamo.FechaPrestamo.ToString("dd/MM/yyyy")
+                        </td>
+
+                        <td>
+                            @prestamo.FechaDevolucionPrevista.ToString("dd/MM/yyyy")
+                        </td>
+
+                        <td>
+                            @if (prestamo.Devuelto)
+                            {
+                                <span class="badge bg-success">
+                                    Devuelto
+                                </span>
+                            }
+                            else if (prestamo.FechaDevolucionPrevista.Date
+                                     < DateTime.Today)
+                            {
+                                <span class="badge bg-danger">
+                                    Vencido
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">
+                                    Activo
+                                </span>
+                            }
+                        </td>
+
+                        <td class="text-end">
+                            @if (!prestamo.Devuelto)
+                            {
+                                <form asp-action="Devolver"
+                                      asp-route-id="@prestamo.Id"
+                                      method="post"
+                                      onsubmit="return confirm('¿Confirmar la devolución de este libro?');">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit"
+                                            class="btn btn-sm btn-outline-success">
+                                        <i class="bi bi-check-circle"></i>
+                                        Devolver
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted small">
+                                    @prestamo.FechaDevolucionReal?.ToString("dd/MM/yyyy")
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5 text-muted">
+            <i class="bi bi-journal-bookmark fs-1"></i>
+            <p class="mt-3">
+                No se encontraron préstamos registrados.
+            </p>
+        </div>
+    }
+
+</div>

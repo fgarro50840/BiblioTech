@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewData["Title"] = "Panel principal";
+}
+
+<div class="page-header">
+    <div>
+        <h1>Panel principal</h1>
+        <p>
+            Bienvenido a BiblioTech.
+            Administre su biblioteca de forma sencilla.
+        </p>
+    </div>
+
+    <span class="welcome-badge">
+        <i class="bi bi-calendar3"></i>
+        @DateTime.Now.ToString("dd/MM/yyyy")
+    </span>
+</div>
+
+<!-- Estadísticas -->
+<div class="row g-4 mb-4">
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-icon blue">
+                <i class="bi bi-book"></i>
+            </div>
+            <div class="stat-info">
+                <span>Total de libros</span>
+                <h2>@ViewBag.TotalLibros</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-icon green">
+                <i class="bi bi-check-circle"></i>
+            </div>
+            <div class="stat-info">
+                <span>Libros disponibles</span>
+                <h2>@ViewBag.LibrosDisponibles</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-icon purple">
+                <i class="bi bi-people"></i>
+            </div>
+            <div class="stat-info">
+                <span>Usuarios registrados</span>
+                <h2>@ViewBag.TotalUsuarios</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <div class="stat-icon orange">
+                <i class="bi bi-clock-history"></i>
+            </div>
+            <div class="stat-info">
+                <span>Préstamos activos</span>
+                <h2>@ViewBag.PrestamosActivos</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Accesos rápidos -->
+<div class="content-card">
+
+    <div class="section-heading">
+        <h4>
+            Acciones rápidos
+        </h4>
+        <p>Seleccione la operación que desea realizar.</p>
+    </div>
+
+    <div class="row g-3">
+
+        <div class="col-md-6 col-lg-3">
+            <a asp-controller="Libros"
+               asp-action="Create"
+               class="quick-action">
+                <i class="bi bi-plus-circle"></i>
+                <span>Registrar libro</span>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <a asp-controller="Usuarios"
+               asp-action="Create"
+               class="quick-action">
+                <i class="bi bi-person-plus"></i>
+                <span>Registrar usuario</span>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <a asp-controller="Prestamos"
+               asp-action="Create"
+               class="quick-action">
+                <i class="bi bi-journal-arrow-up"></i>
+                <span>Nuevo préstamo</span>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <a asp-controller="Prestamos"
+               asp-action="Index"
+               class="quick-action">
+                <i class="bi bi-card-checklist"></i>
+                <span>Ver préstamos</span>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Información -->
+<div class="info-panel mt-4">
+    <i class="bi bi-info-circle"></i>
+    <div>
+        <strong>Gestión sencilla y organizada</strong>
+        <p>
+            Desde BiblioTech puede administrar libros,
+            autores, usuarios y préstamos en un solo lugar.
+        </p>
+    </div>
+</div>
+

@@ -1,0 +1,27 @@
+﻿
+@model BiblioTech.Models.Autor
+
+@{
+    ViewData["Title"] = "Registrar autor";
+}
+
+<div class="page-header">
+    <div>
+        <h1>Registrar autor</h1>
+        <p>Ingrese los datos del nuevo autor.</p>
+    </div>
+</div>
+
+<div class="content-card">
+    <form asp-action="Create" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <partial name="_Formulario" model="Model" />
+
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

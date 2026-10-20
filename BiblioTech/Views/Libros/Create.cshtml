@@ -1,0 +1,29 @@
+﻿
+@model BiblioTech.Models.Libro
+
+@{
+    ViewData["Title"] = "Registrar libro";
+}
+
+<div class="page-header">
+    <div>
+        <h1>Registrar libro</h1>
+        <p>Complete los datos del nuevo libro.</p>
+    </div>
+</div>
+
+<div class="content-card">
+
+    <form asp-action="Create" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <partial name="_Formulario" model="Model" />
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,90 @@
+﻿
+@model BiblioTech.Models.Libro
+
+<div asp-validation-summary="ModelOnly"
+     class="text-danger mb-3"></div>
+
+<div class="row g-4">
+
+    <div class="col-md-12">
+        <label asp-for="Titulo" class="form-label">
+            Título del libro
+        </label>
+
+        <input asp-for="Titulo"
+               class="form-control"
+               maxlength="200"
+               required
+               placeholder="Ejemplo: Cien años de soledad" />
+
+        <span asp-validation-for="Titulo"
+              class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="ISBN" class="form-label">
+            ISBN
+        </label>
+
+        <input asp-for="ISBN"
+               class="form-control"
+               maxlength="20"
+               required
+               placeholder="Ejemplo: 9780307474728" />
+
+        <span asp-validation-for="ISBN"
+              class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="AnioPublicacion" class="form-label">
+            Año de publicación
+        </label>
+
+        <input asp-for="AnioPublicacion"
+               type="number"
+               min="1450"
+               max="@DateTime.Now.Year"
+               class="form-control"
+               required />
+
+        <span asp-validation-for="AnioPublicacion"
+              class="text-danger"></span>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for="AutorId" class="form-label">
+            Autor
+        </label>
+
+        <select asp-for="AutorId"
+                asp-items="ViewBag.Autores"
+                class="form-select"
+                required>
+            <option value="">Seleccione un autor</option>
+        </select>
+
+        <span asp-validation-for="AutorId"
+              class="text-danger"></span>
+
+        <div class="form-text">
+            Si el autor no aparece, regístrelo primero
+            desde el módulo de Autores.
+        </div>
+    </div>
+
+</div>
+
+<div class="mt-4 d-flex gap-2">
+
+    <button type="submit" class="btn btn-primary">
+        <i class="bi bi-check-circle"></i>
+        Guardar libro
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-outline-secondary">
+        Cancelar
+    </a>
+
+</div>
